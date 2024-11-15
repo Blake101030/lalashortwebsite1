@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Words of Affirmation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+            color: #ff6b6b;
+        }
+        .envelopes-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .envelope-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .envelope {
+            width: 100px;
+            height: 80px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .envelope:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        .envelope.opened {
+            background: #ff6b6b;
+            color: white;
+            cursor: default;
+        }
+        .title {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #333;
+            text-align: center;
+        }
+        .affirmation {
+            display: none;
+            margin-top: 20px;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+        .popup .affirmation {
+            position: absolute;
+            bottom: 20px;
+            color: #fff;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>I love you lablab! I hope maka tabang niiiii</h1>
+    <div class="envelopes-container">
+        <!-- Envelopes with titles -->
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 0)">💌</div>
+            <p class="title">Worried About the Future</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 1)">💌</div>
+            <p class="title">Worry About Love</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 2)">💌</div>
+            <p class="title">Feeling Stressed</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 3)">💌</div>
+            <p class="title">Doubting Yourself</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 4)">💌</div>
+            <p class="title">Having a Bad Day</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 5)">💌</div>
+            <p class="title">Need Motivation</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 6)">💌</div>
+            <p class="title">Feeling Lonely</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 7)">💌</div>
+            <p class="title">Overthinking</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 8)">💌</div>
+            <p class="title">Needing Reassurance</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 9)">💌</div>
+            <p class="title">Looking for Positivity</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 10)">💌</div>
+            <p class="title">Feeling Down</p>
+        </div>
+        <div class="envelope-container">
+            <div class="envelope" onclick="openEnvelope(this, 11)">💌</div>
+            <p class="title">Feeling Unloved</p>
+        </div>
+    </div>
+    <div class="popup" id="popup">
+        <img src="" alt="Popup Image" onclick="closePopup()">
+        <div class="affirmation" id="popup-affirmation"></div>
+    </div>
+
+    <script>
+        const affirmations = [
+            "Don't worry sa future lablab trust the process lang there is always GOD PEFERCT TIME! kong ma tingala kong kinsa na sa pic ikaw na 5 years from now hahahha gi edit kona lablab astig diba hahah.",
+            "Im all yours lablab.",
+            "Take a deep breath—you’ve got this!",
+            "Kaya mona lablab ko laban lang, You are capable and worthy.",
+            "Yesterday is history, tomorrow is a mystery, but today is a gift. That is why it is called the present.",
+            "You can achieve anything you set your mind to!",
+            "Abin tah always lablab don't worry.",
+            "Let go of the unnecessary worries. Everything will be okay!",
+            "You are loved more than you know.",
+            "Positivity flows through you and around you.",
+            "Every moment is a chance to feel better. You’re amazing!",
+            "You are deeply loved and cherished."
+        ];
+
+        const images = [
+            "4.jpg", // Replace with your image paths
+            "11.jpg",
+            "10.jpg",
+            "12.jpg",
+            "8.jpg",
+            "3.jpg",
+            "1.jpg",
+            "5.jpg",
+            "6.jpg",
+            "8.jpg",
+            "9.jpg",
+            "13.jpg"
+        ];
+
+        function openEnvelope(envelope, index) {
+            if (!envelope.classList.contains('opened')) {
+                // Display the specific affirmation and image
+                const affirmation = affirmations[index];
+                const popupImage = document.getElementById("popup").querySelector("img");
+                const popupAffirmation = document.getElementById("popup-affirmation");
+
+                // Update and display the affirmation
+                popupAffirmation.textContent = affirmation;
+                popupAffirmation.style.display = 'block';
+
+                // Show the popup with the image
+                popupImage.src = images[index];
+                document.getElementById('popup').style.display = 'flex';
+
+                // Mark envelope as opened
+                envelope.textContent = "❤️";
+                envelope.classList.add('opened');
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
